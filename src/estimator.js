@@ -18,7 +18,7 @@ const normalizedDays = (periodType, periodCount) => {
 
 const ci = (reportedCases, severe = false) => {
   const calc = !severe ? reportedCases * 10 : reportedCases * 50;
-  return calc;
+  return calc; 
 };
 
 const ibrt = (currentlyInfected, days) => currentlyInfected * (2 ** Math.trunc(days / 3));
