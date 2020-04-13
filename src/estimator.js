@@ -34,13 +34,13 @@ const cfibrt = ({ infectionsByRequestedTime }) => Math.trunc(infectionsByRequest
 
 const cfvbrt = ({ infectionsByRequestedTime }) => Math.trunc(infectionsByRequestedTime * 0.02);
 
-const dif = ({ infectionsByRequestedTime }, 
-  { avgDailyIncomeInUSD, avgDailyIncomePopulation }, 
-  day) => {
-    const impact = infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD;
-    const avgImpact = Math.trunc(impact / day);
-    return avgImpact;
-  }
+const dif = ({ infectionsByRequestedTime },
+  { avgDailyIncomeInUSD, avgDailyIncomePopulation },
+  days) => {
+  const impact = infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD;
+  const avgImpact = Math.trunc(impact / days);
+  return avgImpact;
+}
 
 const covid19ImpactEstimator = (data) => {
   const impact = {};
