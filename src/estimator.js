@@ -4,45 +4,45 @@ const normalizedDays = (periodType, periodCount) => {
     case 'days':
       days = periodCount;
       break;
-      case 'weeks':
-        days = periodCount * 7;
-        break;
-        case 'months':
-          days = periodCount * 30;
-          break;
-          default:
-            break;
-          }
-          return days;
-        }
-        
-        const currentlyInfected = (reportedCases, severe = false) => {
-          return !severe ? reportedCases * 10 : reportedCases * 50;
-        }
-        
-        const ibrt = (currentlyInfected, days) => {
-          return currentlyInfected * (2 ** Math.trunc(days / 3));
-        }
+    case 'weeks':
+      days = periodCount * 7;
+      break;
+    case 'months':
+      days = periodCount * 30;
+      break;
+    default:
+      break;
+  }
+  return days;
+};
 
-        const scbrt = (ibrt) => {
-          return Math.trunc(ibrt * 0.15);
-        }
-        
-        const hbbrt = (thb, {severeCasesByRequestedTime}) => {
-          return Math.trunc((thb * 0.35) - severeCasesByRequestedTime);
-        }
-        
-        const cfibrt = ({infectionsByRequestedTime}) => {
-          return Math.trunc(infectionsByRequestedTime * 0.05);
-        }
-        
-        const cfvbrt = ({infectionsByRequestedTime}) => {
+const ci = (reportedCases, severe = false) => {
+  return !severe ? reportedCases * 10 : reportedCases * 50;
+};
+
+const ibrt = (currentlyInfected, days) => {
+  return currentlyInfected * (2 ** Math.trunc(days / 3));
+};
+
+const scbrt = (ibrt) => {
+  return Math.trunc(ibrt * 0.15);
+};
+
+const hbbrt = (thb, { severeCasesByRequestedTime }) => {
+  return Math.trunc((thb * 0.35) - severeCasesByRequestedTime);
+};
+
+const cfibrt = ({ infectionsByRequestedTime }) => {
+  return Math.trunc(infectionsByRequestedTime * 0.05);
+};
+
+const cfvbrt = ({ infectionsByRequestedTime }) => {
   return Math.trunc(infectionsByRequestedTime * 0.02);
-}
+};
 
-const dif = ({infectionsByRequestedTime}, {avgDailyIncomeInUSD, avgDailyIncomePopulation}, day) => {
+const dif = ({ infectionsByRequestedTime }, { avgDailyIncomeInUSD, avgDailyIncomePopulation }, day) => {
   return infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * day;
-}
+};
 
 const estimator = (x) => {
   
@@ -53,8 +53,8 @@ const covid19ImpactEstimator = (data) => {
   const severeImpact = {};
   let days = normalizedDays(data.periodType, data.timeToElapse);
   
-  impact.currentlyInfected = currentlyInfected(data.reportedCases);
-  severeImpact.currentlyInfected = currentlyInfected(data.reportedCases, true);
+  impact.currentlyInfected = ci(data.reportedCases);
+  severeImpact.currentlyInfected = ci(data.reportedCases, true);
 
   impact.infectionsByRequestedTime = ibrt(impact.currentlyInfected, days);
   severeImpact.infectionsByRequestedTime = ibrt(severeImpact.currentlyInfected, days);
@@ -76,4 +76,3 @@ const covid19ImpactEstimator = (data) => {
 };  
 
 export default covid19ImpactEstimator;
-
