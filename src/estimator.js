@@ -17,9 +17,9 @@ const normalizedDays = (periodType, periodCount) => {
 };
 
 const ci = (reportedCases, severe = false) => {
- const calc = !severe ? reportedCases * 10 : reportedCases * 50;
- return calc;
-}
+  const calc = !severe ? reportedCases * 10 : reportedCases * 50;
+  return calc;
+};
 
 const ibrt = (currentlyInfected, days) => currentlyInfected * (2 ** Math.trunc(days / 3));
 
@@ -63,6 +63,6 @@ const covid19ImpactEstimator = (data) => {
 
   impact.dollarInFlight = dif(impact, data.region, days);
   severeImpact.dollarInFlight = dif(severeImpact, data.region, days);
-};  
+}; 
 
 export default covid19ImpactEstimator;
