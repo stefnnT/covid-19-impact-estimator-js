@@ -61,8 +61,8 @@ const covid19ImpactEstimator = (data) => {
   impact.casesForVentilatorsByRequestedTime = cfvbrt(impact);
   severeImpact.casesForVentilatorsByRequestedTime = cfvbrt(severeImpact);
 
-  impact.dollarInFlight = dif(impact, data.region, days);
-  severeImpact.dollarInFlight = dif(severeImpact, data.region, days);
+  impact.dollarsInFlight = dif(impact, data.region, days);
+  severeImpact.dollarsInFlight = dif(severeImpact, data.region, days);
 
   return { data, impact, severeImpact };
 };
