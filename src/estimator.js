@@ -16,7 +16,10 @@ const normalizedDays = (periodType, periodCount) => {
   return days;
 };
 
-const ci = (reportedCases, severe = false) => !severe ? reportedCases * 10 : reportedCases * 50;
+const ci = (reportedCases, severe = false) => {
+ const calc = !severe ? reportedCases * 10 : reportedCases * 50;
+ return calc;
+}
 
 const ibrt = (currentlyInfected, days) => currentlyInfected * (2 ** Math.trunc(days / 3));
 
@@ -31,15 +34,15 @@ const cfibrt = ({ infectionsByRequestedTime }) => Math.trunc(infectionsByRequest
 
 const cfvbrt = ({ infectionsByRequestedTime }) => Math.trunc(infectionsByRequestedTime * 0.02);
 
-const dif = ({ infectionsByRequestedTime }, 
-  { avgDailyIncomeInUSD, avgDailyIncomePopulation }, 
+const dif = ({ infectionsByRequestedTime },
+  { avgDailyIncomeInUSD, avgDailyIncomePopulation },
   day) => infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * day;
 
 const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
   const days = normalizedDays(data.periodType, data.timeToElapse);
-  
+
   impact.currentlyInfected = ci(data.reportedCases);
   severeImpact.currentlyInfected = ci(data.reportedCases, true);
 
