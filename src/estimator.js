@@ -63,6 +63,8 @@ const covid19ImpactEstimator = (data) => {
 
   impact.dollarInFlight = dif(impact, data.region, days);
   severeImpact.dollarInFlight = dif(severeImpact, data.region, days);
-}; 
+
+  return { data, impact, severeImpact };
+};
 
 export default covid19ImpactEstimator;
