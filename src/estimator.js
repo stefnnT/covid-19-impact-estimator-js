@@ -40,7 +40,7 @@ const dif = ({ infectionsByRequestedTime },
   const impact = infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD;
   const avgImpact = Math.trunc(impact / days);
   return avgImpact;
-}
+};
 
 const covid19ImpactEstimator = (data) => {
   const impact = {};
